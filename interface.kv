@@ -1,0 +1,64 @@
+<MainMenu>:
+    FloatLayout:
+        size:root.width,root.height
+
+        Image:
+            source: "projearkaplanresmi.jpg"
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {"x": 0, "y": 0}
+        Label:
+            id:ponglabel
+            text:"Pong Game"
+            font_size:40
+            pos_hint:{'center_x': 0.5, 'center_y': 0.74}
+        Button:
+            id:start
+            text:"Start"
+            size_hint: 0.3, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            background_color: 0, 0.5, 1, 1
+            on_press:root.start_pong_game()
+        Button:
+            id:highestscore
+            text:"Highest Score"
+            size_hint: 0.3, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.37}
+            background_color: 0, 0.5, 1, 1
+        Button:
+            id:history
+            text:"History"
+            size_hint: 0.3, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.24}
+            background_color: 0, 0.5, 1, 1
+            on_press:root.show_all_match()
+<HistoryScreen>:
+    FloatLayout:
+        size:root.width,root.height
+        Image:
+            source: "projearkaplanresmi.jpg"
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+            pos_hint: {"x": 0, "y": 0}
+        Label:
+            id:player1
+            text:"Player 1 wins = 0"
+            font_size:40
+            pos_hint:{'center_x': 0.5, 'center_y': 0.64}
+        Label:
+            id:player2
+            text:"Player 2 wins = 0"
+            font_size:40
+            pos_hint:{'center_x': 0.5, 'center_y': 0.54}
+        Button:
+            id:goback
+            text:"Go Back"
+            size_hint: 0.3, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.34}
+            background_color: 0, 0.5, 1, 1
+            on_press:root.go_back()
+
+
+
