@@ -27,13 +27,28 @@ class MainMenu(Screen):
     def start_server(self):
         subprocess.Popen(["python", "server.py"])
 
-    def join_online_game(self, server_ip=None):
-        # server_ip değişkenini pong_game.py'ye argüman olarak ileteceğiz
-        # subprocess çağrısına ekle
-        if server_ip:
-            subprocess.Popen(["python", "pong_game.py", server_ip])
-        else:
-            subprocess.Popen(["python", "pong_game.py"])
+    def join_online_game(self):
+        from kivy.uix.popup import Popup
+        from kivy.uix.boxlayout import BoxLayout
+        from kivy.uix.textinput import TextInput
+        from kivy.uix.button import Button
+
+        layout = BoxLayout(orientation='vertical', spacing=10)
+        ip_input = TextInput(hint_text="Enter Server IP", multiline=False)
+        btn = Button(text="Connect", size_hint_y=0.3)
+
+        def connect_to_ip(instance):
+            ip = ip_input.text
+            self.manager.current = "waiting"  # Waiting ekranına geçiş
+            popup.dismiss()
+            subprocess.Popen(["python", "pong_game.py", ip])
+
+        btn.bind(on_press=connect_to_ip)
+        layout.add_widget(ip_input)
+        layout.add_widget(btn)
+
+        popup = Popup(title="Join Game", content=layout, size_hint=(0.8, 0.4))
+        popup.open()
 
     def show_all_match(self):
         file="keep_score.json"
@@ -47,6 +62,9 @@ class MainMenu(Screen):
 class HistoryScreen(Screen):
     def go_back(self):
         self.manager.current ="menu"
+class WaitingScreen(Screen):
+    pass
+
 
 class PongApp(App):
     def build(self):
