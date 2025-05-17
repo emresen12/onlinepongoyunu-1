@@ -1,9 +1,9 @@
 import socket
 import threading
 
-HOST = '0.0.0.0'  # Her yerden bağlanabilir
-PORT = 12345
-
+HOST =  socket.gethostbyname(socket.gethostname()) # Her yerden bağlanabilir
+PORT = 5059
+print(HOST , PORT)
 clients = []
 
 def handle_client(conn, addr):
@@ -34,4 +34,4 @@ def main():
         threading.Thread(target=handle_client, args=(conn, addr), daemon=True).start()
 
 if __name__ == "__main__":
-    main()
+   main()

@@ -13,8 +13,8 @@ from kivy.core.audio import SoundLoader
 Builder.load_file("interface.kv")
 
 class MainMenu(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def _init_(self, **kwargs):
+        super()._init_(**kwargs)
         self.sound = SoundLoader.load("oyununarayüzsesi.mp3")
         if self.sound:
             self.sound.loop = True
@@ -22,7 +22,10 @@ class MainMenu(Screen):
             self.sound.play()
 
     def start_pong_game(self):
-        subprocess.Popen(["python", "pong_game.py"])
+
+        import socket
+        local_ip = socket.gethostbyname(socket.gethostname())
+        subprocess.Popen(["python", "pong_game.py", local_ip, "server"])
 
     def start_server(self):
         subprocess.Popen(["python", "server.py"])
@@ -41,7 +44,7 @@ class MainMenu(Screen):
             ip = ip_input.text
             self.manager.current = "waiting"  # Waiting ekranına geçiş
             popup.dismiss()
-            subprocess.Popen(["python", "pong_game.py", ip])
+            subprocess.Popen(["python", "pong_game.py", ip, "client"])
 
         btn.bind(on_press=connect_to_ip)
         layout.add_widget(ip_input)
@@ -72,7 +75,8 @@ class PongApp(App):
         sm = ScreenManager()
         sm.add_widget(MainMenu(name="menu"))
         sm.add_widget(HistoryScreen(name="history"))
+        sm.add_widget(WaitingScreen(name="waiting"))
         return sm
 
-if __name__=='__main__':
-    PongApp().run()
+if __name__=='main_':
+   PongApp().run()

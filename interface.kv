@@ -19,7 +19,16 @@
             size_hint: 0.3, 0.1
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             background_color: 0, 0.5, 1, 1
-            on_press:root.start_pong_game()
+            on_press:root.join_online_game()
+        Button:
+            id:startserver
+            text:"Start Server"
+            size_hint: 0.3, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+            background_color: 0, 0.5, 1, 1
+            on_press:root.start_server()
+
+
         Button:
             id:history
             text:"History"
